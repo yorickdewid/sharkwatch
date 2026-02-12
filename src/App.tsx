@@ -92,7 +92,10 @@ function App() {
 
       {selectedRobot && (
         <div className="chart-section">
-          <EnvironmentalChart robotUid={selectedRobot} />
+          <EnvironmentalChart
+            robotUid={selectedRobot}
+            onClose={() => setSelectedRobot(null)}
+          />
         </div>
       )}
 

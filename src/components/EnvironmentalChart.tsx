@@ -13,11 +13,12 @@ interface EnvironmentalData {
 
 interface Props {
   robotUid: string;
+  onClose: () => void;
 }
 
 const API_BASE = import.meta.env.PROD ? '/api' : 'http://localhost:3000/api';
 
-export default function EnvironmentalChart({ robotUid }: Props) {
+export default function EnvironmentalChart({ robotUid, onClose }: Props) {
   const [data, setData] = useState<EnvironmentalData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,12 +61,15 @@ export default function EnvironmentalChart({ robotUid }: Props) {
 
   return (
     <div className="environmental-charts">
-      <h3>Environmental Sensor Data - Robot {robotUid}</h3>
+      <div className="chart-header">
+        <h3>Environmental Sensor Data - Robot {robotUid}</h3>
+        <button className="close-btn" onClick={onClose}>✕</button>
+      </div>
       <div className="charts-grid">
         {data.some(d => d.temperature !== null) && (
           <div className="chart">
             <h4>Temperature (°C)</h4>
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={180}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" tick={false} />
@@ -80,7 +84,7 @@ export default function EnvironmentalChart({ robotUid }: Props) {
         {data.some(d => d.pH !== null) && (
           <div className="chart">
             <h4>pH Level</h4>
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={180}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" tick={false} />
@@ -95,7 +99,7 @@ export default function EnvironmentalChart({ robotUid }: Props) {
         {data.some(d => d.turbidity !== null) && (
           <div className="chart">
             <h4>Turbidity (NTU)</h4>
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={180}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" tick={false} />
@@ -110,7 +114,7 @@ export default function EnvironmentalChart({ robotUid }: Props) {
         {data.some(d => d.DOmgL !== null) && (
           <div className="chart">
             <h4>Dissolved Oxygen (mg/L)</h4>
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={180}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" tick={false} />
