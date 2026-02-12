@@ -4,7 +4,7 @@ services:
   - name: web
     dockerfile_path: Dockerfile
     github:
-      repo: <will-be-set-manually>
+      repo: yorickdewid/sharkwatch
       branch: main
       deploy_on_push: true
     http_port: 3000
